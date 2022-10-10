@@ -1,0 +1,7 @@
+.elements__figure {
+    overflow: hidden;
+    margin: 0;
+    background: #FFF;
+    border-radius: 10px;
+    color: #000;
+}
