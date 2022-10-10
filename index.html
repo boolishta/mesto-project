@@ -18,71 +18,86 @@
             <section class="profile">
                 <img class="profile__avatar" src="./images/cousteau.jpg" alt="Жак Ив Кусто">
                 <div class="profile__info">
-                    <p class="profile__name">Жак-Ив Кусто<button class="profile__edit-button">
+                    <h1 class="profile__name">Жак-Ив Кусто<button class="profile__edit-button">
                         </button>
-                    </p>
+                    </h1>
                     <p class="profile__status">
                         Исследователь океана
                     </p>
                 </div>
                 <button class="profile__add-button"></button>
             </section>
-            <section class="elements">
-                <figure class="elements__figure">
-                    <img class="elements__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
-                    <figcaption class="elements__figcaption">
-                        Карачаевск
-                        <button class="elements__favorite-button elements__favorite-button_active">
-                        </button>
-                    </figcaption>
-                </figure>
-                <figure class="elements__figure">
-                    <img class="elements__image" src="./images/elbrus.jpg" alt="Эльбрус">
-                    <figcaption class="elements__figcaption">
-                        Гора Эльбрус
-                        <button class="elements__favorite-button">
-                        </button>
-                    </figcaption>
-                </figure>
-                <figure class="elements__figure">
-                    <img class="elements__image" src="./images/dombai.jpg" alt="Домбай">
-                    <figcaption class="elements__figcaption">
-                        Домбай
-                        <button class="elements__favorite-button">
-                        </button>
-                    </figcaption>
-                </figure>
-                <figure class="elements__figure">
-                    <img class="elements__image" src="./images/elbrus.jpg" alt="Эльбрус">
-                    <figcaption class="elements__figcaption">
-                        Гора Эльбрус
-                        <button class="elements__favorite-button">
-                        </button>
-                    </figcaption>
-                </figure>
-                <figure class="elements__figure">
-                    <img class="elements__image" src="./images/dombai.jpg" alt="Домбай">
-                    <figcaption class="elements__figcaption">
-                        Домбай
-                        <button class="elements__favorite-button">
-                        </button>
-                    </figcaption>
-                </figure>
-                <figure class="elements__figure">
-                    <img class="elements__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
-                    <figcaption class="elements__figcaption">
-                        Карачаево-Черкессия
-                        <button class="elements__favorite-button elements__favorite-button_active">
-                        </button>
-                    </figcaption>
-                </figure>
+            <section class="elements" aria-label="Секция со карточками">
+                <ul class=" elements__list">
+                    <li>
+                        <figure class="elements__figure">
+                            <img class="elements__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
+                            <figcaption class="elements__figcaption">
+                                Карачаевск
+                                <button class="elements__favorite-button elements__favorite-button_active">
+                                </button>
+                            </figcaption>
+                        </figure>
+                    </li>
+                    <li>
+                        <figure class="elements__figure">
+                            <img class="elements__image" src="./images/elbrus.jpg" alt="Эльбрус">
+                            <figcaption class="elements__figcaption">
+                                Гора Эльбрус
+                                <button class="elements__favorite-button">
+                                </button>
+                            </figcaption>
+                        </figure>
+                    </li>
+                    <li>
+                        <figure class="elements__figure">
+                            <img class="elements__image" src="./images/dombai.jpg" alt="Домбай">
+                            <figcaption class="elements__figcaption">
+                                Домбай
+                                <button class="elements__favorite-button">
+                                </button>
+                            </figcaption>
+                        </figure>
+                    </li>
+                    <li>
+                        <figure class="elements__figure">
+                            <img class="elements__image" src="./images/elbrus.jpg" alt="Эльбрус">
+                            <figcaption class="elements__figcaption">
+                                Гора Эльбрус
+                                <button class="elements__favorite-button">
+                                </button>
+                            </figcaption>
+                        </figure>
+                    </li>
+                    <li>
+                        <figure class="elements__figure">
+                            <img class="elements__image" src="./images/dombai.jpg" alt="Домбай">
+                            <figcaption class="elements__figcaption">
+                                Домбай
+                                <button class="elements__favorite-button">
+                                </button>
+                            </figcaption>
+                        </figure>
+                    </li>
+                    <li>
+                        <figure class="elements__figure">
+                            <img class="elements__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
+                            <figcaption class="elements__figcaption">
+                                Карачаево-Черкессия
+                                <button class="elements__favorite-button elements__favorite-button_active">
+                                </button>
+                            </figcaption>
+                        </figure>
+                    </li>
+                </ul>
+
             </section>
         </main>
         <footer class="footer">© 2020 Mesto Russia</footer>
     </div>
     <div class="popup">
         <div class="popup__container">
-            <form action="">
+            <form action="/">
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <label>
                     <input placeholder="Имя" type="text" name="name" class="popup__control" value="Жак-Ив Кусто">
