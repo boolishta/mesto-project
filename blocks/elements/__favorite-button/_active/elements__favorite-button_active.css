@@ -1,3 +1,3 @@
-.elements__favorite-button_active::after {
-    background: url(../../../../images/heart-filled.svg);
+.elements__favorite-button_active {
+    background: url(../../../../images/heart-filled.svg) no-repeat center;
 }

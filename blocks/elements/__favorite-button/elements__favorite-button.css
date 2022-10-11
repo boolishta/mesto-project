@@ -1,32 +1,18 @@
 .elements__favorite-button {
-    position: absolute;
-    top: 30px;
-    right: 20px;
+    flex-shrink: 0;
     width: 22px;
     height: 19px;
     border: none;
-    background-color: transparent;
+    background: url(../../../images/heart.svg) no-repeat center;
     padding: 0;
     cursor: pointer;
     transition: opacity .3s;
-}
-
-.elements__favorite-button::after {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    content: '';
-    background: url(../../../images/heart.svg);
 }
 
 .elements__favorite-button:disabled {
     cursor: not-allowed;
 }
 
-@media (hover:hover) {
-    .elements__favorite-button:not(:disabled):hover {
-        opacity: 0.5;
-    }
+.elements__favorite-button:not(:disabled):hover {
+    opacity: 0.5;
 }

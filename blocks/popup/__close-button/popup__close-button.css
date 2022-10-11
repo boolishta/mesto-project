@@ -12,10 +12,8 @@
     transition: opacity .3s;
 }
 
-@media (hover:hover) {
-    .popup__close-button:hover {
-        opacity: .6;
-    }
+.popup__close-button:hover {
+    opacity: .6;
 }
 
 @media screen and (max-width: 768px) {
