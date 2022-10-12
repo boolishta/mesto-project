@@ -17,6 +17,5 @@
 @media screen and (max-width: 500px) {
     .elements__list {
         grid-template-columns: repeat(1, minmax(0, 1fr));
-        padding: 0 19px;
     }
 }
