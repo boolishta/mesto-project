@@ -1,6 +1,7 @@
-import { initialCards } from './cards.js'
-import { initHandleFormSubmit } from './initHandleFormSubmit.js'
-import { initProfilePopup } from './initProfilePopup.js';
+import { addProfileCards } from './profileCards.js'
+import { initHandleFormSubmit } from './form.js'
+import { initOpenPopups } from './popup.js'
 
-initProfilePopup()
+addProfileCards()
+initOpenPopups()
 initHandleFormSubmit()
