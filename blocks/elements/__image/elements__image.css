@@ -1,6 +1,7 @@
 .elements__image {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    height: auto;
+	display: block;
+	width: 100%;
+	max-width: 100%;
+	height: auto;
+	aspect-ratio: 1 / 1;
 }
