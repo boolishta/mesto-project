@@ -28,6 +28,8 @@ export function initHandleFormSubmit() {
 		const formElement = popupElement.querySelector('form')
 		const closePopupButton = popupElement.querySelector('.popup__close-button')
 		closePopupButton.addEventListener('click', closePopup)
-		formElement.addEventListener('submit', handleFormSubmit)
+		if (formElement) {
+			formElement.addEventListener('submit', handleFormSubmit)
+		}
 	}
 }

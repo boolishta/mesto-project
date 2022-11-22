@@ -1,4 +1,5 @@
 import { initialCards } from './initialCards.js'
+import { handlePopup } from './popup.js'
 
 function removeCardElement(event) {
 	event.target.closest('li').remove()
@@ -13,15 +14,19 @@ function initProfileCards() {
 	cardElements.forEach((card) => {
 		const favoriteButton = card.querySelector('.elements__favorite-button');
 		const removeButton = card.querySelector('.elements__remove-button')
+		const imageElement = card.querySelector('.elements__image');
 		favoriteButton.addEventListener('click', favoriteCardElement)
 		removeButton.addEventListener('click', removeCardElement)
+		imageElement.addEventListener('click', handlePopup)
 	})
 }
 
 function createCardElement(card) {
 	const cardTemplate = document.querySelector('#cardTemplate').content;
 	const cardElement = cardTemplate.querySelector('li').cloneNode(true);
-	cardElement.querySelector('.elements__image').src = card.link;
+	const imageElement = cardElement.querySelector('.elements__image')
+	imageElement.src = card.link;
+	imageElement.alt = card.name;
 	cardElement.querySelector('.elements__name').textContent = card.name;
 	return cardElement
 }
