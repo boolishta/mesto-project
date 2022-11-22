@@ -14,7 +14,7 @@ function initPopupPicture(element) {
 	const imageElement = popupPictureElement.querySelector('.popup__image')
 	imageElement.src = imageSrc
 	imageElement.alt = figcaption
-	popupPictureElement.querySelector('figcaption').textContent = figcaption
+	popupPictureElement.querySelector('.popup__figcaption').textContent = figcaption
 	return popupPictureElement
 }
 
