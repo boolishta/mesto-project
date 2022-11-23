@@ -10,7 +10,7 @@ function favoriteCardElement(event) {
 }
 
 function initProfileCards() {
-	const cardElements = document.querySelectorAll('.elements__list>li');
+	const cardElements = document.querySelectorAll('.elements__item');
 	cardElements.forEach((card) => {
 		const favoriteButton = card.querySelector('.elements__favorite-button');
 		const removeButton = card.querySelector('.elements__remove-button')

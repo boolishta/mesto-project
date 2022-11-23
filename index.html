@@ -36,7 +36,7 @@
 		</main>
 		<footer class="footer">&copy; 2020 Mesto Russia</footer>
 	</div>
-	<div class="popup">
+	<div class="popup popup-profile">
 		<div class="popup__container">
 			<form action="/" name="editProfile">
 				<h2 class="popup__title">Редактировать профиль</h2>
@@ -51,7 +51,7 @@
 			<button type="button" class="popup__close-button" aria-label="Кнопка закрыть"></button>
 		</div>
 	</div>
-	<div class="popup">
+	<div class="popup popup-card">
 		<div class="popup__container">
 			<form action="/" name="addCard">
 				<h2 class="popup__title">Новое место</h2>
@@ -67,8 +67,8 @@
 			</form>
 		</div>
 	</div>
-	<div class="popup popup_type_picture">
-		<div class="popup__picture-container">
+	<div class="popup popup-picture">
+		<div class="popup-picture__container">
 			<figure class="popup__figure">
 				<img class="popup__image" src="" alt="">
 				<figcaption class="popup__figcaption"></figcaption>
@@ -80,7 +80,7 @@
 </body>
 
 <template id="cardTemplate">
-	<li>
+	<li class="elements__item">
 		<figure class="elements__figure">
 			<img class="elements__image" src="" alt="">
 			<figcaption class="elements__figcaption">
