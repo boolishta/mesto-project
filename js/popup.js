@@ -7,6 +7,8 @@ const openProfilePopupButton = document.querySelector('.profile__edit-button')
 const openCardPopupButton = document.querySelector('.profile__add-button')
 const popupFigcaptionElement = popupPicture.querySelector('.popup__figcaption');
 const popupImageElement = popupPicture.querySelector('.popup__image')
+const profileNameElement = document.querySelector('.profile__name');
+const profileStatusElement = document.querySelector('.profile__status');
 
 function openPopup(element) {
 	if (element) {
@@ -14,10 +16,9 @@ function openPopup(element) {
 	}
 }
 
-function openPopupProfile({ target }) {
-	const profileElement = target.closest('.profile')
-	popupProfileName.value = profileElement.querySelector('.profile__name').textContent.trim()
-	popupProfileStatus.value = profileElement.querySelector('.profile__status').textContent.trim()
+function openPopupProfile() {
+	popupProfileName.value = profileNameElement.textContent.trim()
+	popupProfileStatus.value = profileStatusElement.textContent.trim()
 	openPopup(popupProfile)
 }
 
