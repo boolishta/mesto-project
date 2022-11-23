@@ -1,49 +1,41 @@
 import { initialCards } from './initialCards.js'
-import { handlePopup } from './popup.js'
+import { openPopupPicture } from './popup.js'
 
-function removeCardElement(event) {
-	event.target.closest('li').remove()
+const elementsEl = document.querySelector('.elements__list');
+const cardTemplate = document.querySelector('#cardTemplate').content;
+
+function removeCard(event) {
+	event.target.closest('.elements__item').remove()
 }
 
-function favoriteCardElement(event) {
+function favoriteCard(event) {
 	event.target.classList.toggle('elements__favorite-button_active')
 }
 
-function initProfileCards() {
-	const cardElements = document.querySelectorAll('.elements__item');
-	cardElements.forEach((card) => {
-		const favoriteButton = card.querySelector('.elements__favorite-button');
-		const removeButton = card.querySelector('.elements__remove-button')
-		const imageElement = card.querySelector('.elements__image');
-		favoriteButton.addEventListener('click', favoriteCardElement)
-		removeButton.addEventListener('click', removeCardElement)
-		imageElement.addEventListener('click', handlePopup)
-	})
-}
-
 function createCardElement(card) {
-	const cardTemplate = document.querySelector('#cardTemplate').content;
-	const cardElement = cardTemplate.querySelector('li').cloneNode(true);
+	const cardElement = cardTemplate.querySelector('.elements__item').cloneNode(true);
 	const imageElement = cardElement.querySelector('.elements__image')
+	const nameElement = cardElement.querySelector('.elements__name');
+	const favoriteButton = cardElement.querySelector('.elements__favorite-button');
+	const removeButton = cardElement.querySelector('.elements__remove-button')
 	imageElement.src = card.link;
 	imageElement.alt = card.name;
-	cardElement.querySelector('.elements__name').textContent = card.name;
+	nameElement.textContent = card.name;
+	favoriteButton.addEventListener('click', favoriteCard)
+	removeButton.addEventListener('click', removeCard)
+	imageElement.addEventListener('click', openPopupPicture)
+
 	return cardElement
 }
 
 export function addPrependProfileCard(card) {
-	const elementsEl = document.querySelector('.elements__list');
 	const cardElement = createCardElement({ link: card.link, name: card.name })
 	elementsEl.prepend(cardElement)
-	initProfileCards()
 }
 
 export function addProfileCards() {
-	const elementsEl = document.querySelector('.elements__list');
-
 	initialCards.forEach((card) => {
 		elementsEl.append(createCardElement(card));
 	})
-	initProfileCards()
 }
 

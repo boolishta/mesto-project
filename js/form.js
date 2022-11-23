@@ -1,35 +1,35 @@
-import { closePopup } from './popup.js'
 import { addPrependProfileCard } from './profileCards.js'
+import { popupCard, closePopup, popupProfileName, popupProfileStatus } from './popup.js';
 
-function handleFormSubmit(event) {
+const popupElements = document.querySelectorAll('.popup')
+const popupCardName = popupCard.querySelector('[name="name"]');
+const popupCardImage = popupCard.querySelector('[name="image"]');
+const profileNameElement = document.querySelector('.profile__name')
+const profileStatusElement = document.querySelector('.profile__status')
+
+function handleCardFormSubmit(event) {
 	event.preventDefault();
-	const formElement = event.target
-	const formName = formElement.getAttribute('name')
-
-	if (formName === 'editProfile') {
-		const nameInput = formElement.querySelector('.popup__control[name="name"]')
-		const jobInput = formElement.querySelector('.popup__control[name="status"]')
-		const nameElement = document.querySelector('.profile__name')
-		const jobElement = document.querySelector('.profile__status')
-		nameElement.textContent = nameInput.value
-		jobElement.textContent = jobInput.value
-	} else if (formName === 'addCard') {
-		const nameInput = formElement.querySelector('.popup__control[name="name"]')
-		const imageInput = formElement.querySelector('.popup__control[name="image"]')
-		addPrependProfileCard({ link: imageInput.value, name: nameInput.value })
-	}
+	addPrependProfileCard({ link: popupCardImage.value, name: popupCardName.value })
+	event.target.reset()
 	closePopup(event)
 }
 
+function handleProfileFormSubmit(event) {
+	event.preventDefault();
+	profileNameElement.textContent = popupProfileName.value
+	profileStatusElement.textContent = popupProfileStatus.value
+	closePopup(event)
+}
 
 export function initHandleFormSubmit() {
-	const popupElements = document.querySelectorAll('.popup')
 	for (const popupElement of popupElements) {
-		const formElement = popupElement.querySelector('form')
 		const closePopupButton = popupElement.querySelector('.popup__close-button')
+		const formElement = popupElement.querySelector('form')
 		closePopupButton.addEventListener('click', closePopup)
-		if (formElement) {
-			formElement.addEventListener('submit', handleFormSubmit)
+		if (popupElement.classList.contains('popup-profile')) {
+			formElement.addEventListener('submit', handleProfileFormSubmit)
+		} else if (popupElement.classList.contains('popup-card')) {
+			formElement.addEventListener('submit', handleCardFormSubmit)
 		}
 	}
 }
