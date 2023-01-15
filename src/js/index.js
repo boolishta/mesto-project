@@ -6,3 +6,4 @@ import "../pages/index.css";
 addProfileCards();
 initOpenPopups();
 initHandleFormSubmit();
+console.log("init");
