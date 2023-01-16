@@ -52,24 +52,35 @@
           <h2 class="popup__title">Редактировать профиль</h2>
           <label class="popup__field">
             <input
+              id="name-input"
               required
               placeholder="Имя"
               type="text"
               name="name"
               class="popup__input"
               value=""
+              data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+              minlength="2"
+              maxlength="40"
+              pattern="^[a-zA-Zа-яА-Я\sёЁ\-]+$"
             />
-            <span class="popup__error"></span>
+            <span class="name-input-error popup__error"></span>
           </label>
           <label class="popup__field">
             <input
-              placeholder="Статус"
+              id="status-input"
+              placeholder="О себе"
               type="text"
               name="status"
               class="popup__input"
               value=""
+              minlength="2"
+              maxlength="200"
+              required
+              data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+              pattern="^[a-zA-Zа-яА-Я\sёЁ\-]+$"
             />
-            <span class="popup__error"></span>
+            <span class="status-input-error popup__error"></span>
           </label>
           <button
             type="submit"
