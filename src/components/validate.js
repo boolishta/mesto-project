@@ -12,13 +12,24 @@ function hideInputError(formElement, inputElement, data) {
   errorElement.textContent = "";
 }
 
-function isValid(formElement, inputElement, data) {
-  if (inputElement.validity.patternMismatch) {
-    inputElement.setCustomValidity(inputElement.dataset.errorMessage);
+function setCustomValidityMessage(inputElement) {
+  const { patternMismatch, valueMissing, tooShort, tooLong } =
+    inputElement.validity;
+  const { patternMismatchError, valueMissingError, tooShortError } =
+    inputElement.dataset;
+
+  if (patternMismatch) {
+    inputElement.setCustomValidity(patternMismatchError);
+  } else if (valueMissing) {
+    inputElement.setCustomValidity(valueMissingError);
+  } else if (tooShort || tooLong) {
+    inputElement.setCustomValidity(tooShortError);
   } else {
     inputElement.setCustomValidity("");
   }
+}
 
+function isValid(formElement, inputElement, data) {
   if (!inputElement.validity.valid) {
     showInputError(
       formElement,
@@ -56,6 +67,7 @@ function setEventListeners(formElement, data) {
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
+      setCustomValidityMessage(inputElement);
       isValid(formElement, inputElement, data);
       toggleButtonState(inputList, data);
     });
