@@ -48,8 +48,8 @@ function hasInvalidInput(inputList) {
   });
 }
 
-function toggleButtonState(inputList, data) {
-  const buttonElement = document.querySelector(data.submitButtonSelector);
+function toggleButtonState(formElement, inputList, data) {
+  const buttonElement = formElement.querySelector(data.submitButtonSelector);
 
   if (hasInvalidInput(inputList)) {
     buttonElement.disabled = true;
@@ -69,7 +69,7 @@ function setEventListeners(formElement, data) {
     inputElement.addEventListener("input", () => {
       setCustomValidityMessage(inputElement);
       isValid(formElement, inputElement, data);
-      toggleButtonState(inputList, data);
+      toggleButtonState(formElement, inputList, data);
     });
   });
 }

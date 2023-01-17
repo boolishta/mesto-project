@@ -103,31 +103,45 @@
     </div>
     <div class="popup popup-card">
       <div class="popup__container">
-        <form action="/" name="addCard">
+        <form action="/" name="addCard" class="popup__form">
           <h2 class="popup__title">Новое место</h2>
-          <label>
+          <label class="popup__field">
             <input
+              id="place-input"
               required
               placeholder="Название"
               type="text"
-              name="name"
+              name="place"
               class="popup__input"
               value=""
+              minlength="2"
+              maxlength="30"
+              data-pattern-mismatch-error="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+              data-value-missing-error="Вы пропустили это поле."
+              data-too-short-error="Поле должно быть от 2 до 30 символов"
+              pattern="^[a-zA-Zа-яА-Я\sёЁ\-]+$"
             />
+            <span class="place-input-error popup__error"></span>
           </label>
-          <label>
+          <label class="popup__field">
             <input
+              id="link-input"
               required
-              placeholder="Ссылка на картинку"
+              placeholder="Ссылка на картинку https:://"
               type="text"
               name="image"
               class="popup__input"
               value=""
+              data-pattern-mismatch-error="Разрешены только ссылки"
+              data-value-missing-error="Вы пропустили это поле."
+              pattern="^https?:\/\/([\w-]{1,32}\.[\w-]{1,32})[^\s@]*$"
             />
+            <span class="link-input-error popup__error"></span>
           </label>
           <button
+            disabled
             type="submit"
-            class="popup__button popup__button_type_submit"
+            class="popup__button popup__button_type_submit popup__button_disabled"
             aria-label="Кнопка создать"
           >
             Создать

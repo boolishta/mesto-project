@@ -7,7 +7,7 @@ import {
 } from "./modal.js";
 
 const popupElements = document.querySelectorAll(".popup");
-const popupCardName = popupCard.querySelector('[name="name"]');
+const popupCardName = popupCard.querySelector('[name="place"]');
 const popupCardImage = popupCard.querySelector('[name="image"]');
 const profileNameElement = document.querySelector(".profile__name");
 const profileStatusElement = document.querySelector(".profile__status");
