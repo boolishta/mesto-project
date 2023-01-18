@@ -1,0 +1,7 @@
+.popup__field_excess {
+  margin-bottom: 13px;
+}
+
+.popup__field_excess > .popup__error {
+  position: relative;
+}

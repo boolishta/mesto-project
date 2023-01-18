@@ -1,8 +1,23 @@
+function enableErrorExcess(inputElement) {
+  const fieldElement = inputElement.closest(".popup__field");
+  fieldElement.classList.add("popup__field_excess");
+}
+
+function disableErrorExcess(inputElement) {
+  const fieldElement = inputElement.closest(".popup__field");
+  fieldElement.classList.remove("popup__field_excess");
+}
+
 function showInputError(formElement, inputElement, errorMessage, data) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  let errorElementHeight;
   inputElement.classList.add(data.inputErrorClass);
   errorElement.textContent = errorMessage;
   errorElement.classList.add(data.errorClass);
+  errorElementHeight = errorElement.offsetHeight;
+  if (errorElementHeight > 30) {
+    enableErrorExcess(inputElement);
+  }
 }
 
 function hideInputError(formElement, inputElement, data) {
@@ -10,6 +25,7 @@ function hideInputError(formElement, inputElement, data) {
   inputElement.classList.remove(data.inputErrorClass);
   errorElement.classList.remove(data.errorClass);
   errorElement.textContent = "";
+  disableErrorExcess(inputElement);
 }
 
 function setCustomValidityMessage(inputElement) {
