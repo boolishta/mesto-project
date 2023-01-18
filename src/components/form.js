@@ -31,9 +31,7 @@ function handleProfileFormSubmit(event) {
 
 export function initHandleFormSubmit() {
   for (const popupElement of popupElements) {
-    const closePopupButton = popupElement.querySelector(".popup__close-button");
     const formElement = popupElement.querySelector("form");
-    closePopupButton.addEventListener("click", closePopup);
     if (popupElement.classList.contains("popup-profile")) {
       formElement.addEventListener("submit", handleProfileFormSubmit);
     } else if (popupElement.classList.contains("popup-card")) {

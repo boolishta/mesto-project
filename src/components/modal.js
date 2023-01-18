@@ -1,3 +1,5 @@
+import { listenOutsideClick } from "./utils";
+
 const popupProfile = document.querySelector(".popup-profile");
 export const popupProfileName = popupProfile.querySelector('[name="name"]');
 export const popupProfileStatus = popupProfile.querySelector('[name="status"]');
@@ -14,6 +16,18 @@ function openPopup(element) {
   if (element) {
     element.classList.add("popup_opened");
   }
+  const containerElement =
+    element.querySelector(".popup__container") ||
+    element.querySelector(".popup-picture__container");
+  const { promise, close } = listenOutsideClick(containerElement);
+  promise.then(() => element.classList.remove("popup_opened"));
+  document.addEventListener("keydown", (event) => {
+    if (event.code.toLowerCase() === "escape") {
+      close();
+    }
+  });
+  const closePopupButton = element.querySelector(".popup__close-button");
+  closePopupButton.addEventListener("click", close);
 }
 
 function openPopupProfile() {
