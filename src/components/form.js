@@ -1,12 +1,11 @@
-import { addPrependProfileCard } from "./card.js";
+import { addCard } from "./card.js";
 import {
   popupCard,
-  closePopup,
+  hidePopup,
   popupProfileName,
   popupProfileStatus,
 } from "./modal.js";
 
-const popupElements = document.querySelectorAll(".popup");
 const popupCardName = popupCard.querySelector('[name="place"]');
 const popupCardImage = popupCard.querySelector('[name="image"]');
 const profileNameElement = document.querySelector(".profile__name");
@@ -14,28 +13,24 @@ const profileStatusElement = document.querySelector(".profile__status");
 
 function handleCardFormSubmit(event) {
   event.preventDefault();
-  addPrependProfileCard({
+  addCard({
     link: popupCardImage.value,
     name: popupCardName.value,
   });
   event.target.reset();
-  closePopup(event);
+  hidePopup(event);
 }
 
 function handleProfileFormSubmit(event) {
   event.preventDefault();
   profileNameElement.textContent = popupProfileName.value;
   profileStatusElement.textContent = popupProfileStatus.value;
-  closePopup(event);
+  hidePopup(event);
 }
 
 export function initHandleFormSubmit() {
-  for (const popupElement of popupElements) {
-    const formElement = popupElement.querySelector("form");
-    if (popupElement.classList.contains("popup-profile")) {
-      formElement.addEventListener("submit", handleProfileFormSubmit);
-    } else if (popupElement.classList.contains("popup-card")) {
-      formElement.addEventListener("submit", handleCardFormSubmit);
-    }
-  }
+  const profileForm = document.forms["profile-form"];
+  const cardForm = document.forms["card-form"];
+  profileForm.addEventListener("submit", handleProfileFormSubmit);
+  cardForm.addEventListener("submit", handleCardFormSubmit);
 }

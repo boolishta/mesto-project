@@ -1,5 +1,5 @@
-import { initialCards } from "./initialCards.js"; // TODO: карточки получать из бека
-import { openPopupPicture } from "./modal.js";
+import { initialCards } from "./initialCards.js";
+import { handleCardClick } from "./modal.js";
 
 const elementsEl = document.querySelector(".elements__list");
 const cardTemplate = document.querySelector("#cardTemplate").content;
@@ -8,7 +8,7 @@ function removeCard(event) {
   event.target.closest(".elements__item").remove();
 }
 
-function favoriteCard(event) {
+function toggleLike(event) {
   event.target.classList.toggle("elements__favorite-button_active");
 }
 
@@ -25,19 +25,21 @@ function createCardElement(card) {
   imageElement.src = card.link;
   imageElement.alt = card.name;
   nameElement.textContent = card.name;
-  favoriteButton.addEventListener("click", favoriteCard);
+  favoriteButton.addEventListener("click", toggleLike);
   removeButton.addEventListener("click", removeCard);
-  imageElement.addEventListener("click", openPopupPicture);
+  imageElement.addEventListener("click", () =>
+    handleCardClick(card.name, card.link)
+  );
 
   return cardElement;
 }
 
-export function addPrependProfileCard(card) {
+export function addCard(card) {
   const cardElement = createCardElement({ link: card.link, name: card.name });
   elementsEl.prepend(cardElement);
 }
 
-export function addProfileCards() {
+export function addInitialCards() {
   initialCards.forEach((card) => {
     elementsEl.append(createCardElement(card));
   });

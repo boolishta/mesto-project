@@ -1,5 +1,3 @@
-import { listenOutsideClick } from "./utils";
-
 const popupProfile = document.querySelector(".popup-profile");
 export const popupProfileName = popupProfile.querySelector('[name="name"]');
 export const popupProfileStatus = popupProfile.querySelector('[name="status"]');
@@ -12,22 +10,29 @@ const popupImageElement = popupPicture.querySelector(".popup__image");
 const profileNameElement = document.querySelector(".profile__name");
 const profileStatusElement = document.querySelector(".profile__status");
 
+function closePopup(element) {
+  if (element) {
+    element.classList.remove("popup_opened");
+  }
+  document.removeEventListener("keydown", closeByEscape);
+}
+
+export function hidePopup({ target }) {
+  closePopup(target.closest(".popup"));
+}
+
+function closeByEscape(evt) {
+  if (evt.key === "Escape") {
+    const openedPopup = document.querySelector(".popup_opened");
+    closePopup(openedPopup);
+  }
+}
+
 function openPopup(element) {
   if (element) {
     element.classList.add("popup_opened");
   }
-  const containerElement =
-    element.querySelector(".popup__container") ||
-    element.querySelector(".popup-picture__container");
-  const { promise, close } = listenOutsideClick(containerElement);
-  promise.then(() => element.classList.remove("popup_opened"));
-  document.addEventListener("keydown", (event) => {
-    if (event.code.toLowerCase() === "escape") {
-      close();
-    }
-  });
-  const closePopupButton = element.querySelector(".popup__close-button");
-  closePopupButton.addEventListener("click", close);
+  document.addEventListener("keydown", closeByEscape);
 }
 
 function openPopupProfile() {
@@ -40,19 +45,10 @@ function openPopupCard() {
   openPopup(popupCard);
 }
 
-export function closePopup({ target }) {
-  target.closest(".popup").classList.remove("popup_opened");
-}
-
-export function openPopupPicture({ target }) {
-  const pictureElement = target.closest(".elements__figure");
-  const src = pictureElement.querySelector(".elements__image").src.trim();
-  const figcaption = pictureElement
-    .querySelector(".elements__name")
-    .textContent.trim();
-  popupImageElement.src = src;
-  popupImageElement.alt = figcaption;
-  popupFigcaptionElement.textContent = figcaption;
+export function handleCardClick(name, link) {
+  popupImageElement.src = link;
+  popupImageElement.alt = name;
+  popupFigcaptionElement.textContent = name;
   openPopup(popupPicture);
 }
 
@@ -64,4 +60,16 @@ export function initOpenPopups() {
   if (openCardPopupButton) {
     openCardPopupButton.addEventListener("click", openPopupCard);
   }
+
+  const popups = document.querySelectorAll(".popup");
+  popups.forEach((popup) => {
+    popup.addEventListener("mousedown", (evt) => {
+      if (evt.target.classList.contains("popup_opened")) {
+        closePopup(popup);
+      }
+      if (evt.target.classList.contains("popup__close-button")) {
+        closePopup(popup);
+      }
+    });
+  });
 }

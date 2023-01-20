@@ -1,11 +1,11 @@
-function enableErrorExcess(inputElement) {
-  const fieldElement = inputElement.closest(".popup__field");
-  fieldElement.classList.add("popup__field_excess");
+function enableErrorExcess(inputElement, data) {
+  const fieldElement = inputElement.closest(data.fieldSelector);
+  fieldElement.classList.add(data.fieldExcessClass);
 }
 
-function disableErrorExcess(inputElement) {
-  const fieldElement = inputElement.closest(".popup__field");
-  fieldElement.classList.remove("popup__field_excess");
+function disableErrorExcess(inputElement, data) {
+  const fieldElement = inputElement.closest(data.fieldSelector);
+  fieldElement.classList.remove(data.fieldExcessClass);
 }
 
 function showInputError(formElement, inputElement, errorMessage, data) {
@@ -16,7 +16,7 @@ function showInputError(formElement, inputElement, errorMessage, data) {
   errorElement.classList.add(data.errorClass);
   errorElementHeight = errorElement.offsetHeight;
   if (errorElementHeight > 30) {
-    enableErrorExcess(inputElement);
+    enableErrorExcess(inputElement, data);
   }
 }
 
@@ -25,7 +25,7 @@ function hideInputError(formElement, inputElement, data) {
   inputElement.classList.remove(data.inputErrorClass);
   errorElement.classList.remove(data.errorClass);
   errorElement.textContent = "";
-  disableErrorExcess(inputElement);
+  disableErrorExcess(inputElement, data);
 }
 
 function setCustomValidityMessage(inputElement) {
@@ -80,13 +80,16 @@ function setEventListeners(formElement, data) {
   const inputList = Array.from(
     formElement.querySelectorAll(data.inputSelector)
   );
-
+  toggleButtonState(formElement, inputList, data);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
       setCustomValidityMessage(inputElement);
       isValid(formElement, inputElement, data);
       toggleButtonState(formElement, inputList, data);
     });
+  });
+  formElement.addEventListener("reset", () => {
+    setTimeout(() => toggleButtonState(formElement, inputList, data), 0);
   });
 }
 

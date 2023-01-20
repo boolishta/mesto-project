@@ -31,7 +31,6 @@
               type="button"
               aria-label="Кнопка редактировать"
               class="profile__edit-button"
-              data-modal="editProfile"
             ></button>
             <p class="profile__status">Исследователь океана</p>
           </div>
@@ -47,9 +46,9 @@
       </main>
       <footer class="footer">&copy; 2020 Mesto Russia</footer>
     </div>
-    <div class="popup popup-profile" data-modal-name="editProfile">
+    <div class="popup popup-profile">
       <div class="popup__container">
-        <form action="/" name="editProfile" class="popup__form">
+        <form action="/" name="profile-form" class="popup__form">
           <h2 class="popup__title">Редактировать профиль</h2>
           <label class="popup__field">
             <input
@@ -60,7 +59,7 @@
               name="name"
               class="popup__input"
               value=""
-              data-pattern-mismatch-error="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+              data-pattern-mismatch-error="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
               data-value-missing-error="Вы пропустили это поле."
               data-too-short-error="Поле должно быть от 2 до 40 символов"
               minlength="2"
@@ -104,7 +103,7 @@
     </div>
     <div class="popup popup-card">
       <div class="popup__container">
-        <form action="/" name="addCard" class="popup__form">
+        <form action="/" name="card-form" class="popup__form">
           <h2 class="popup__title">Новое место</h2>
           <label class="popup__field">
             <input
@@ -144,6 +143,7 @@
             type="submit"
             class="popup__button popup__button_type_submit popup__button_disabled"
             aria-label="Кнопка создать"
+            disabled
           >
             Создать
           </button>
