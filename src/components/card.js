@@ -1,4 +1,3 @@
-import { initialCards } from "./initialCards.js";
 import { handleCardClick } from "./modal.js";
 
 const elementsEl = document.querySelector(".elements__list");
@@ -39,8 +38,11 @@ export function addCard(card) {
   elementsEl.prepend(cardElement);
 }
 
-export function addInitialCards() {
-  initialCards.forEach((card) => {
+export function addInitialCards(cards) {
+  if (!cards) {
+    return;
+  }
+  cards.forEach((card) => {
     elementsEl.append(createCardElement(card));
   });
 }

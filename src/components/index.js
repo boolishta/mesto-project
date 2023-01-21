@@ -2,9 +2,13 @@ import { addInitialCards } from "./card.js";
 import { initOpenPopups } from "./modal.js";
 import { initHandleFormSubmit } from "./form.js";
 import { enableValidation } from "./validate.js";
+import { getInitialCards, getUser, handleError } from "./api.js";
 import "../pages/index.css";
+import { initProfile } from "./profile.js";
 
-addInitialCards();
+getInitialCards()
+  .then((res) => addInitialCards(res))
+  .catch((err) => handleError(err));
 initOpenPopups();
 initHandleFormSubmit();
 enableValidation({
@@ -17,3 +21,6 @@ enableValidation({
   fieldSelector: ".popup__field",
   fieldExcessClass: "popup__field_excess",
 });
+getUser()
+  .then((user) => initProfile(user))
+  .catch((err) => handleError(err));
