@@ -1,3 +1,4 @@
+import { updateUser } from "./api.js";
 import { addCard } from "./card.js";
 import {
   popupCard,
@@ -23,9 +24,25 @@ function handleCardFormSubmit(event) {
 
 function handleProfileFormSubmit(event) {
   event.preventDefault();
-  profileNameElement.textContent = popupProfileName.value;
-  profileStatusElement.textContent = popupProfileStatus.value;
-  hidePopup(event);
+  const buttonSubmitElement = event.target.querySelector(
+    "button[type='submit']"
+  );
+  const savedSubmitText = buttonSubmitElement.textContent;
+  buttonSubmitElement.textContent = "Загрузка ...";
+  buttonSubmitElement.disabled = true;
+  updateUser({
+    name: popupProfileName.value,
+    about: popupProfileStatus.value,
+  })
+    .then((user) => {
+      profileNameElement.textContent = user.name;
+      profileStatusElement.textContent = user.about;
+    })
+    .finally(() => {
+      hidePopup(event);
+      buttonSubmitElement.textContent = savedSubmitText;
+      buttonSubmitElement.disabled = false;
+    });
 }
 
 export function initHandleFormSubmit() {

@@ -33,4 +33,23 @@ function getUser() {
   return handleFetch(`${config.baseUrl}/users/me`);
 }
 
-export { handleError, getInitialCards, getUser };
+function updateUser({ name, about }) {
+  return fetch(`${config.baseUrl}/users/me`, {
+    method: "PATCH",
+    headers: config.headers,
+    body: JSON.stringify({
+      name,
+      about,
+    }),
+  }).then((res) => {
+    return res
+      .json()
+      .then((data) =>
+        res.ok
+          ? data
+          : Promise.reject({ status: res.status, message: data.message })
+      );
+  });
+}
+
+export { handleError, getInitialCards, getUser, updateUser };
