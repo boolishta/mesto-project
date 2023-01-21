@@ -52,4 +52,23 @@ function updateUser({ name, about }) {
   });
 }
 
-export { handleError, getInitialCards, getUser, updateUser };
+function addCard({ name, link }) {
+  return fetch(`${config.baseUrl}/cards`, {
+    method: "POST",
+    headers: config.headers,
+    body: JSON.stringify({
+      name,
+      link,
+    }),
+  }).then((res) => {
+    return res
+      .json()
+      .then((data) =>
+        res.ok
+          ? data
+          : Promise.reject({ status: res.status, message: data.message })
+      );
+  });
+}
+
+export { handleError, getInitialCards, getUser, updateUser, addCard };

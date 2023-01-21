@@ -1,25 +1,47 @@
-import { updateUser } from "./api.js";
-import { addCard } from "./card.js";
+import { updateUser, addCard } from "./api.js";
 import {
   popupCard,
   hidePopup,
   popupProfileName,
   popupProfileStatus,
 } from "./modal.js";
+import { createCardElement, elementsEl } from "./card.js";
 
 const popupCardName = popupCard.querySelector('[name="place"]');
 const popupCardImage = popupCard.querySelector('[name="image"]');
 const profileNameElement = document.querySelector(".profile__name");
 const profileStatusElement = document.querySelector(".profile__status");
 
+function disableButton(element) {
+  element.textContent = "Загрузка ...";
+  element.disabled = true;
+}
+
+function enableButton(element, text) {
+  element.textContent = text;
+  element.disabled = false;
+}
+
 function handleCardFormSubmit(event) {
   event.preventDefault();
+  const buttonSubmitElement = event.target.querySelector(
+    "button[type='submit']"
+  );
+  const savedSubmitText = buttonSubmitElement.textContent;
+  disableButton(buttonSubmitElement);
   addCard({
     link: popupCardImage.value,
     name: popupCardName.value,
-  });
-  event.target.reset();
-  hidePopup(event);
+  })
+    .then((card) => {
+      const cardElement = createCardElement(card);
+      elementsEl.prepend(cardElement);
+    })
+    .finally(() => {
+      event.target.reset();
+      enableButton(buttonSubmitElement, savedSubmitText);
+      hidePopup(event);
+    });
 }
 
 function handleProfileFormSubmit(event) {
@@ -28,8 +50,7 @@ function handleProfileFormSubmit(event) {
     "button[type='submit']"
   );
   const savedSubmitText = buttonSubmitElement.textContent;
-  buttonSubmitElement.textContent = "Загрузка ...";
-  buttonSubmitElement.disabled = true;
+  disableButton(buttonSubmitElement);
   updateUser({
     name: popupProfileName.value,
     about: popupProfileStatus.value,
@@ -39,9 +60,8 @@ function handleProfileFormSubmit(event) {
       profileStatusElement.textContent = user.about;
     })
     .finally(() => {
+      enableButton(buttonSubmitElement, savedSubmitText);
       hidePopup(event);
-      buttonSubmitElement.textContent = savedSubmitText;
-      buttonSubmitElement.disabled = false;
     });
 }
 

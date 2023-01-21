@@ -1,6 +1,6 @@
 import { handleCardClick } from "./modal.js";
 
-const elementsEl = document.querySelector(".elements__list");
+export const elementsEl = document.querySelector(".elements__list");
 const cardTemplate = document.querySelector("#cardTemplate").content;
 
 function removeCard(event) {
@@ -11,7 +11,7 @@ function toggleLike(event) {
   event.target.classList.toggle("elements__favorite-button_active");
 }
 
-function createCardElement(card) {
+export function createCardElement(card) {
   const cardElement = cardTemplate
     .querySelector(".elements__item")
     .cloneNode(true);
@@ -31,11 +31,6 @@ function createCardElement(card) {
   );
 
   return cardElement;
-}
-
-export function addCard(card) {
-  const cardElement = createCardElement({ link: card.link, name: card.name });
-  elementsEl.prepend(cardElement);
 }
 
 export function addInitialCards(cards) {
