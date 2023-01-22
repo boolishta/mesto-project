@@ -11,7 +11,7 @@ function toggleLike(event) {
   event.target.classList.toggle("elements__favorite-button_active");
 }
 
-export function createCardElement(card) {
+export function createCardElement({ name, link, likes }) {
   const cardElement = cardTemplate
     .querySelector(".elements__item")
     .cloneNode(true);
@@ -21,14 +21,16 @@ export function createCardElement(card) {
     ".elements__favorite-button"
   );
   const removeButton = cardElement.querySelector(".elements__remove-button");
-  imageElement.src = card.link;
-  imageElement.alt = card.name;
-  nameElement.textContent = card.name;
+  const numberLikesElement = cardElement.querySelector(
+    ".elements__number-likes"
+  );
+  imageElement.src = link;
+  imageElement.alt = name;
+  nameElement.textContent = name;
+  numberLikesElement.textContent = likes;
   favoriteButton.addEventListener("click", toggleLike);
   removeButton.addEventListener("click", removeCard);
-  imageElement.addEventListener("click", () =>
-    handleCardClick(card.name, card.link)
-  );
+  imageElement.addEventListener("click", () => handleCardClick(name, link));
 
   return cardElement;
 }
@@ -38,6 +40,12 @@ export function addInitialCards(cards) {
     return;
   }
   cards.forEach((card) => {
-    elementsEl.append(createCardElement(card));
+    elementsEl.append(
+      createCardElement({
+        name: card.name,
+        link: card.link,
+        likes: card.likes.length,
+      })
+    );
   });
 }

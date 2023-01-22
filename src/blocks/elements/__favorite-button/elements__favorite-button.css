@@ -1,19 +1,20 @@
 .elements__favorite-button {
-    flex-shrink: 0;
-    width: 22px;
-    height: 19px;
-    border: none;
-    background: url(../../../images/heart.svg) no-repeat center;
-    padding: 0;
-    cursor: pointer;
-    outline: none;
-    transition: opacity .3s;
+  flex-shrink: 0;
+  width: 22px;
+  height: 19px;
+  border: none;
+  background: url(../../../images/heart.svg) no-repeat center;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+  transition: opacity 0.3s;
+  grid-area: favorite;
 }
 
 .elements__favorite-button:disabled {
-    cursor: not-allowed;
+  cursor: not-allowed;
 }
 
 .elements__favorite-button:not(:disabled):hover {
-    opacity: 0.5;
+  opacity: 0.5;
 }
