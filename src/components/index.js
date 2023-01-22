@@ -6,8 +6,22 @@ import { getInitialCards, getUser, handleError } from "./api.js";
 import "../pages/index.css";
 import { initProfile } from "./profile.js";
 
-getInitialCards()
-  .then((res) => addInitialCards(res))
+getUser()
+  .then((user) => {
+    initProfile(user);
+    getInitialCards()
+      .then((res) => {
+        const cards = res.map((card) => ({
+          cardId: card._id,
+          name: card.name,
+          link: card.link,
+          likes: card.likes.length,
+          isOwner: user._id === card.owner._id,
+        }));
+        addInitialCards(cards);
+      })
+      .catch((err) => handleError(err));
+  })
   .catch((err) => handleError(err));
 initOpenPopups();
 initHandleFormSubmit();
@@ -21,6 +35,3 @@ enableValidation({
   fieldSelector: ".popup__field",
   fieldExcessClass: "popup__field_excess",
 });
-getUser()
-  .then((user) => initProfile(user))
-  .catch((err) => handleError(err));

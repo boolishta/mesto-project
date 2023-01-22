@@ -71,4 +71,18 @@ function addCard({ name, link }) {
   });
 }
 
-export { handleError, getInitialCards, getUser, updateUser, addCard };
+function removeCard(cardId) {
+  return fetch(`${config.baseUrl}/cards/${cardId}`, {
+    method: "DELETE",
+    headers: config.headers,
+  });
+}
+
+export {
+  handleError,
+  getInitialCards,
+  getUser,
+  updateUser,
+  addCard,
+  removeCard,
+};

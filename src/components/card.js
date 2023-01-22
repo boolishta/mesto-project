@@ -1,17 +1,18 @@
 import { handleCardClick } from "./modal.js";
+import { removeCard } from "./api.js";
 
 export const elementsEl = document.querySelector(".elements__list");
 const cardTemplate = document.querySelector("#cardTemplate").content;
 
-function removeCard(event) {
-  event.target.closest(".elements__item").remove();
+function handleCardRemove(cardId) {
+  removeCard(cardId).then(() => location.reload());
 }
 
 function toggleLike(event) {
   event.target.classList.toggle("elements__favorite-button_active");
 }
 
-export function createCardElement({ name, link, likes }) {
+export function createCardElement({ cardId, name, link, likes, isOwner }) {
   const cardElement = cardTemplate
     .querySelector(".elements__item")
     .cloneNode(true);
@@ -20,7 +21,6 @@ export function createCardElement({ name, link, likes }) {
   const favoriteButton = cardElement.querySelector(
     ".elements__favorite-button"
   );
-  const removeButton = cardElement.querySelector(".elements__remove-button");
   const numberLikesElement = cardElement.querySelector(
     ".elements__number-likes"
   );
@@ -29,8 +29,14 @@ export function createCardElement({ name, link, likes }) {
   nameElement.textContent = name;
   numberLikesElement.textContent = likes;
   favoriteButton.addEventListener("click", toggleLike);
-  removeButton.addEventListener("click", removeCard);
   imageElement.addEventListener("click", () => handleCardClick(name, link));
+
+  if (isOwner) {
+    const removeButton = document.createElement("button");
+    removeButton.classList.add("elements__remove-button");
+    removeButton.addEventListener("click", () => handleCardRemove(cardId));
+    cardElement.appendChild(removeButton);
+  }
 
   return cardElement;
 }
@@ -40,12 +46,6 @@ export function addInitialCards(cards) {
     return;
   }
   cards.forEach((card) => {
-    elementsEl.append(
-      createCardElement({
-        name: card.name,
-        link: card.link,
-        likes: card.likes.length,
-      })
-    );
+    elementsEl.append(createCardElement(card));
   });
 }
