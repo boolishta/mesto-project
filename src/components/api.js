@@ -78,6 +78,20 @@ function removeCard(cardId) {
   });
 }
 
+function likesCard(cardId) {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method: "PUT",
+    headers: config.headers,
+  });
+}
+
+function removeLike(cardId) {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method: "DELETE",
+    headers: config.headers,
+  });
+}
+
 export {
   handleError,
   getInitialCards,
@@ -85,4 +99,6 @@ export {
   updateUser,
   addCard,
   removeCard,
+  likesCard,
+  removeLike,
 };

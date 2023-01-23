@@ -1,18 +1,26 @@
 import { handleCardClick } from "./modal.js";
-import { removeCard } from "./api.js";
+import { removeCard, likesCard, removeLike } from "./api.js";
+import { reloadPage } from "./utils.js";
 
 export const elementsEl = document.querySelector(".elements__list");
 const cardTemplate = document.querySelector("#cardTemplate").content;
 
 function handleCardRemove(cardId) {
-  removeCard(cardId).then(() => location.reload());
+  removeCard(cardId).then(reloadPage);
 }
 
-function toggleLike(event) {
-  event.target.classList.toggle("elements__favorite-button_active");
+function toggleLike(isLiked, cardId) {
+  return isLiked ? removeLike(cardId) : likesCard(cardId);
 }
 
-export function createCardElement({ cardId, name, link, likes, isOwner }) {
+export function createCardElement({
+  cardId,
+  name,
+  link,
+  likes,
+  isOwner,
+  isLiked,
+}) {
   const cardElement = cardTemplate
     .querySelector(".elements__item")
     .cloneNode(true);
@@ -28,7 +36,9 @@ export function createCardElement({ cardId, name, link, likes, isOwner }) {
   imageElement.alt = name;
   nameElement.textContent = name;
   numberLikesElement.textContent = likes;
-  favoriteButton.addEventListener("click", toggleLike);
+  favoriteButton.addEventListener("click", () =>
+    toggleLike(isLiked, cardId).then(reloadPage)
+  );
   imageElement.addEventListener("click", () => handleCardClick(name, link));
 
   if (isOwner) {
@@ -36,6 +46,11 @@ export function createCardElement({ cardId, name, link, likes, isOwner }) {
     removeButton.classList.add("elements__remove-button");
     removeButton.addEventListener("click", () => handleCardRemove(cardId));
     cardElement.appendChild(removeButton);
+  }
+
+  if (isLiked) {
+    const likeElement = cardElement.querySelector(".elements__favorite-button");
+    likeElement.classList.add("elements__favorite-button_active");
   }
 
   return cardElement;

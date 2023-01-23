@@ -17,6 +17,7 @@ getUser()
           link: card.link,
           likes: card.likes.length,
           isOwner: user._id === card.owner._id,
+          isLiked: card.likes.some((item) => item._id === user._id),
         }));
         addInitialCards(cards);
       })

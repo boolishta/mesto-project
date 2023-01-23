@@ -6,6 +6,7 @@ import {
   popupProfileStatus,
 } from "./modal.js";
 import { createCardElement, elementsEl } from "./card.js";
+import { reloadPage } from "./utils.js";
 
 const popupCardName = popupCard.querySelector('[name="place"]');
 const popupCardImage = popupCard.querySelector('[name="image"]');
@@ -41,6 +42,7 @@ function handleCardFormSubmit(event) {
       event.target.reset();
       enableButton(buttonSubmitElement, savedSubmitText);
       hidePopup(event);
+      reloadPage();
     });
 }
 
