@@ -92,6 +92,24 @@ function removeLike(cardId) {
   });
 }
 
+function updateAvatar(avatarLink) {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
+    method: "PATCH",
+    headers: config.headers,
+    body: JSON.stringify({
+      avatar: avatarLink,
+    }),
+  }).then((res) => {
+    return res
+      .json()
+      .then((data) =>
+        res.ok
+          ? data
+          : Promise.reject({ status: res.status, message: data.message })
+      );
+  });
+}
+
 export {
   handleError,
   getInitialCards,
@@ -101,4 +119,5 @@ export {
   removeCard,
   likesCard,
   removeLike,
+  updateAvatar,
 };

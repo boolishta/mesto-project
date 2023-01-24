@@ -20,13 +20,16 @@
       </header>
       <main>
         <section class="profile">
-          <img class="profile__avatar" src="" alt="Аватарка" />
+          <a class="profile__avatar-wrapper" data-popup-name="avatar">
+            <img class="profile__avatar" src="" alt="Аватарка" />
+          </a>
           <div class="profile__info">
             <h1 class="profile__name"></h1>
             <button
               type="button"
               aria-label="Кнопка редактировать"
               class="profile__edit-button"
+              data-popup-name="profile"
             ></button>
             <p class="profile__status"></p>
           </div>
@@ -34,6 +37,7 @@
             type="button"
             aria-label="Кнопка добавить"
             class="profile__add-button"
+            data-popup-name="card"
           ></button>
         </section>
         <section class="elements" aria-label="Секция со карточками">
@@ -142,6 +146,42 @@
             disabled
           >
             Создать
+          </button>
+        </form>
+        <button
+          type="button"
+          class="popup__close-button"
+          aria-label="Кнопка закрыть"
+        ></button>
+      </div>
+    </div>
+    <div class="popup popup-avatar">
+      <div class="popup__container">
+        <form action="/" name="avatar-form" class="popup__form">
+          <h2 class="popup__title">Обновить аватар</h2>
+          <label class="popup__field">
+            <input
+              id="link-input"
+              required
+              placeholder="Ссылка на картинку https:://"
+              type="text"
+              name="avatar"
+              class="popup__input"
+              value=""
+              data-pattern-mismatch-error="Разрешены только ссылки"
+              data-value-missing-error="Вы пропустили это поле."
+              pattern="^https?:\/\/([\w-]{1,32}\.[\w-]{1,32})[^\s@]*$"
+            />
+            <span class="link-input-error popup__error"></span>
+          </label>
+          <button
+            disabled
+            type="submit"
+            class="popup__button popup__button_type_submit popup__button_disabled"
+            aria-label="Кнопка создать"
+            disabled
+          >
+            Обновить
           </button>
         </form>
         <button
