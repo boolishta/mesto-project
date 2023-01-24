@@ -14,15 +14,17 @@ function handleFetch(url, method = "GET") {
   return fetch(url, {
     method,
     headers: config.headers,
-  }).then((res) => {
-    return res
-      .json()
-      .then((data) =>
-        res.ok
-          ? data
-          : Promise.reject({ status: res.status, message: data.message })
-      );
-  });
+  })
+    .then((res) => {
+      return res
+        .json()
+        .then((data) =>
+          res.ok
+            ? data
+            : Promise.reject({ status: res.status, message: data.message })
+        );
+    })
+    .catch(handleError);
 }
 
 function getInitialCards() {
@@ -41,15 +43,17 @@ function updateUser({ name, about }) {
       name,
       about,
     }),
-  }).then((res) => {
-    return res
-      .json()
-      .then((data) =>
-        res.ok
-          ? data
-          : Promise.reject({ status: res.status, message: data.message })
-      );
-  });
+  })
+    .then((res) => {
+      return res
+        .json()
+        .then((data) =>
+          res.ok
+            ? data
+            : Promise.reject({ status: res.status, message: data.message })
+        );
+    })
+    .catch(handleError);
 }
 
 function addCard({ name, link }) {
@@ -60,21 +64,27 @@ function addCard({ name, link }) {
       name,
       link,
     }),
-  }).then((res) => {
-    return res
-      .json()
-      .then((data) =>
-        res.ok
-          ? data
-          : Promise.reject({ status: res.status, message: data.message })
-      );
-  });
+  })
+    .then((res) => {
+      return res
+        .json()
+        .then((data) =>
+          res.ok
+            ? data
+            : Promise.reject({ status: res.status, message: data.message })
+        );
+    })
+    .catch(handleError);
 }
 
 function removeCard(cardId) {
   return fetch(`${config.baseUrl}/cards/${cardId}`, {
     method: "DELETE",
     headers: config.headers,
+  }).then((res) => {
+    if (!res.ok) {
+      return Promise.reject({ status: res.status, message: res.message });
+    }
   });
 }
 
@@ -82,6 +92,10 @@ function likesCard(cardId) {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: "PUT",
     headers: config.headers,
+  }).then((res) => {
+    if (!res.ok) {
+      return Promise.reject({ status: res.status, message: res.message });
+    }
   });
 }
 
@@ -89,6 +103,10 @@ function removeLike(cardId) {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: "DELETE",
     headers: config.headers,
+  }).then((res) => {
+    if (!res.ok) {
+      return Promise.reject({ status: res.status, message: res.message });
+    }
   });
 }
 

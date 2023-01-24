@@ -1,12 +1,12 @@
 import { handleCardClick } from "./modal.js";
-import { removeCard, likesCard, removeLike } from "./api.js";
+import { removeCard, likesCard, removeLike, handleError } from "./api.js";
 import { reloadPage } from "./utils.js";
 
 export const elementsEl = document.querySelector(".elements__list");
 const cardTemplate = document.querySelector("#cardTemplate").content;
 
 function handleCardRemove(cardId) {
-  removeCard(cardId).then(reloadPage);
+  removeCard(cardId).then(reloadPage).catch(handleError);
 }
 
 function toggleLike(isLiked, cardId) {
@@ -37,7 +37,7 @@ export function createCardElement({
   nameElement.textContent = name;
   numberLikesElement.textContent = likes;
   favoriteButton.addEventListener("click", () =>
-    toggleLike(isLiked, cardId).then(reloadPage)
+    toggleLike(isLiked, cardId).then(reloadPage).catch(handleError)
   );
   imageElement.addEventListener("click", () => handleCardClick(name, link));
 

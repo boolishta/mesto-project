@@ -1,4 +1,4 @@
-import { updateUser, addCard, updateAvatar } from "./api.js";
+import { updateUser, addCard, updateAvatar, handleError } from "./api.js";
 import {
   popupCard,
   hidePopup,
@@ -41,13 +41,12 @@ function handleCardFormSubmit(event) {
     .then((card) => {
       const cardElement = createCardElement(card);
       elementsEl.prepend(cardElement);
-    })
-    .finally(() => {
       event.target.reset();
       enableButton(buttonSubmitElement, savedSubmitText);
       hidePopup(event);
       reloadPage();
-    });
+    })
+    .catch(handleError);
 }
 
 function handleProfileFormSubmit(event) {
@@ -62,6 +61,9 @@ function handleProfileFormSubmit(event) {
     about: popupProfileStatus.value,
   })
     .then((user) => {
+      if (!user) {
+        return;
+      }
       profileNameElement.textContent = user.name;
       profileStatusElement.textContent = user.about;
     })
@@ -82,11 +84,10 @@ function handleAvatarFormSubmit(event) {
   updateAvatar(formData.get("avatar"))
     .then((user) => {
       profileAvatarElement.src = user.avatar;
-    })
-    .finally(() => {
       enableButton(buttonSubmitElement, savedSubmitText);
       hidePopup(event);
-    });
+    })
+    .catch(handleError);
 }
 
 export function initHandleFormSubmit() {

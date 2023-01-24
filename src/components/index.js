@@ -6,24 +6,26 @@ import { getInitialCards, getUser, handleError } from "./api.js";
 import "../pages/index.css";
 import { initProfile } from "./profile.js";
 
-getUser()
-  .then((user) => {
-    initProfile(user);
-    getInitialCards()
-      .then((res) => {
-        const cards = res.map((card) => ({
-          cardId: card._id,
-          name: card.name,
-          link: card.link,
-          likes: card.likes.length,
-          isOwner: user._id === card.owner._id,
-          isLiked: card.likes.some((item) => item._id === user._id),
-        }));
-        addInitialCards(cards);
-      })
-      .catch((err) => handleError(err));
-  })
-  .catch((err) => handleError(err));
+getUser().then((user) => {
+  if (!user) {
+    return;
+  }
+  initProfile(user);
+  getInitialCards().then((data) => {
+    if (!data) {
+      return;
+    }
+    const cards = data.map((card) => ({
+      cardId: card._id,
+      name: card.name,
+      link: card.link,
+      likes: card.likes.length,
+      isOwner: user._id === card.owner._id,
+      isLiked: card.likes.some((item) => item._id === user._id),
+    }));
+    addInitialCards(cards);
+  });
+});
 initOpenPopups();
 initHandleFormSubmit();
 enableValidation({
