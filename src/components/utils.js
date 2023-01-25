@@ -1,5 +1,5 @@
-function reloadPage() {
-  location.reload();
+function handleError(err) {
+  console.error(`Что то пошло не так: статус ${err.status}. ${err.message}`);
 }
 
-export { reloadPage };
+export { handleError };

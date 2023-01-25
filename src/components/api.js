@@ -6,25 +6,30 @@ const config = {
   },
 };
 
-function handleError(err) {
-  console.error(`Что то пошло не так: статус ${err.status}. ${err.message}`);
+function handleResponse(response) {
+  return response
+    .json()
+    .then((data) =>
+      response.ok
+        ? data
+        : Promise.reject({ status: response.status, message: data.message })
+    );
+}
+
+function handleReject(response) {
+  if (!response.ok) {
+    return Promise.reject({
+      status: response.status,
+      message: response.message,
+    });
+  }
 }
 
 function handleFetch(url, method = "GET") {
   return fetch(url, {
     method,
     headers: config.headers,
-  })
-    .then((res) => {
-      return res
-        .json()
-        .then((data) =>
-          res.ok
-            ? data
-            : Promise.reject({ status: res.status, message: data.message })
-        );
-    })
-    .catch(handleError);
+  }).then(handleResponse);
 }
 
 function getInitialCards() {
@@ -43,17 +48,7 @@ function updateUser({ name, about }) {
       name,
       about,
     }),
-  })
-    .then((res) => {
-      return res
-        .json()
-        .then((data) =>
-          res.ok
-            ? data
-            : Promise.reject({ status: res.status, message: data.message })
-        );
-    })
-    .catch(handleError);
+  }).then(handleResponse);
 }
 
 function addCard({ name, link }) {
@@ -64,50 +59,28 @@ function addCard({ name, link }) {
       name,
       link,
     }),
-  })
-    .then((res) => {
-      return res
-        .json()
-        .then((data) =>
-          res.ok
-            ? data
-            : Promise.reject({ status: res.status, message: data.message })
-        );
-    })
-    .catch(handleError);
+  }).then(handleResponse);
 }
 
 function removeCard(cardId) {
   return fetch(`${config.baseUrl}/cards/${cardId}`, {
     method: "DELETE",
     headers: config.headers,
-  }).then((res) => {
-    if (!res.ok) {
-      return Promise.reject({ status: res.status, message: res.message });
-    }
-  });
+  }).then(handleReject);
 }
 
 function likesCard(cardId) {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: "PUT",
     headers: config.headers,
-  }).then((res) => {
-    if (!res.ok) {
-      return Promise.reject({ status: res.status, message: res.message });
-    }
-  });
+  }).then(handleReject);
 }
 
 function removeLike(cardId) {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: "DELETE",
     headers: config.headers,
-  }).then((res) => {
-    if (!res.ok) {
-      return Promise.reject({ status: res.status, message: res.message });
-    }
-  });
+  }).then(handleReject);
 }
 
 function updateAvatar(avatarLink) {
@@ -117,15 +90,7 @@ function updateAvatar(avatarLink) {
     body: JSON.stringify({
       avatar: avatarLink,
     }),
-  }).then((res) => {
-    return res
-      .json()
-      .then((data) =>
-        res.ok
-          ? data
-          : Promise.reject({ status: res.status, message: data.message })
-      );
-  });
+  }).then(handleResponse);
 }
 
 export {
