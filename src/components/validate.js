@@ -99,3 +99,11 @@ export function enableValidation(data) {
     setEventListeners(formElement, data);
   });
 }
+
+export function disableButton(element) {
+  element.disabled = true;
+}
+
+export function enableButton(element) {
+  element.disabled = false;
+}

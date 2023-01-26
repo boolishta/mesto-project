@@ -1,10 +1,4 @@
-const config = {
-  baseUrl: "https://nomoreparties.co/v1/plus-cohort-19",
-  headers: {
-    authorization: "b3b90783-5e30-43b5-83b7-945cc82b0f88",
-    "Content-Type": "application/json",
-  },
-};
+import { apiConfig as config } from "./config";
 
 function handleResponse(response) {
   return response
@@ -14,15 +8,6 @@ function handleResponse(response) {
         ? data
         : Promise.reject({ status: response.status, message: data.message })
     );
-}
-
-function handleReject(response) {
-  if (!response.ok) {
-    return Promise.reject({
-      status: response.status,
-      message: response.message,
-    });
-  }
 }
 
 function handleFetch(url, method = "GET") {
@@ -66,21 +51,21 @@ function removeCard(cardId) {
   return fetch(`${config.baseUrl}/cards/${cardId}`, {
     method: "DELETE",
     headers: config.headers,
-  }).then(handleReject);
+  }).then(handleResponse);
 }
 
 function likesCard(cardId) {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: "PUT",
     headers: config.headers,
-  }).then(handleReject);
+  }).then(handleResponse);
 }
 
 function removeLike(cardId) {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: "DELETE",
     headers: config.headers,
-  }).then(handleReject);
+  }).then(handleResponse);
 }
 
 function updateAvatar(avatarLink) {
@@ -94,7 +79,6 @@ function updateAvatar(avatarLink) {
 }
 
 export {
-  handleError,
   getInitialCards,
   getUser,
   updateUser,
